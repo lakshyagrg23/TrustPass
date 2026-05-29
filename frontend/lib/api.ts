@@ -88,6 +88,10 @@ export interface ShareResult {
   expiresAt: string;
 }
 
+export interface ShareLookupResult {
+  presentationToken: string;
+}
+
 export interface FieldVerificationResult {
   field: string;
   value: unknown;
@@ -170,6 +174,10 @@ export const credentialsApi = {
   },
   getAllShares: async (): Promise<GlobalShareRecord[]> => {
     const { data } = await api.get('/credentials/shares/all');
+    return data.data;
+  },
+  getShare: async (shareId: string): Promise<ShareLookupResult> => {
+    const { data } = await api.get(`/credentials/share/${shareId}`);
     return data.data;
   },
 };

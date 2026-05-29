@@ -19,7 +19,7 @@ export async function list(req: Request, res: Response): Promise<void> {
   sendSuccess(res, credentials);
 }
 
-export async function getOne(req: Request, res: Response): Promise<void> {
+export async function getOne(req: Request<{ id: string }>, res: Response): Promise<void> {
   try {
     const credential = await getCredential(req.params.id, req.user!.userId);
     sendSuccess(res, credential);
@@ -60,7 +60,7 @@ export async function share(req: Request, res: Response): Promise<void> {
 }
 
 
-export async function remove(req: Request, res: Response): Promise<void> {
+export async function remove(req: Request<{ id: string }>, res: Response): Promise<void> {
   try {
     await deleteCredential(req.params.id, req.user!.userId);
     sendSuccess(res, null, 'Credential deleted successfully');

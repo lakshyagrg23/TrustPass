@@ -36,7 +36,7 @@ export async function getShareByToken(req: Request, res: Response): Promise<void
  * Lookup a share by its short ID (for QR code short URLs).
  * Returns the presentation token so the frontend can call /verify.
  */
-export async function getShareById(req: Request, res: Response): Promise<void> {
+export async function getShareById(req: Request<{ shareId: string }>, res: Response): Promise<void> {
   const { shareId } = req.params;
   const share = await prisma.share.findUnique({
     where: { id: shareId },

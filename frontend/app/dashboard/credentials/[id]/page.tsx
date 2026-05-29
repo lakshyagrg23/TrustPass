@@ -36,10 +36,10 @@ function ShareDetailModal({
     if (expired) return;
     setLoadingQr(true);
     // Re-fetch the share token to rebuild QR via backend
-    fetch(`${API_BASE}/credentials/share/${share.id}`)
-      .then((r) => r.json())
+    credentialsApi
+      .getShare(share.id)
       .then(async (data) => {
-        if (data?.data?.presentationToken) {
+        if (data.presentationToken) {
           // Generate QR client-side using the share URL (not the token — keeps it short)
           const QRCode = (await import("qrcode")).default;
           const url = await QRCode.toDataURL(shareUrl, {
@@ -135,7 +135,7 @@ function ShareDetailModal({
                   }}
                 >
                   <Check className="w-3 h-3" />
-                  {FIELD_LABELS[f] || f}
+                  {prettyField(f)}
                 </span>
               ))}
             </div>
