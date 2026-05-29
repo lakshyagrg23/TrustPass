@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  name         String
+  createdAt    DateTime     @default(now()) @map("created_at")
+  credentials  Credential[]
+
+  @@map("users")
+}
+
+model Credential {
+  id              String   @id @default(uuid())
+  userId          String   @map("user_id")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialType  String   @default("custom") @map("credential_type") // e.g. academic, identity, license
+  credentialLabel String   @default("Custom Credential") @map("credential_label") // user-defined name
+  encryptedClaims String   @map("encrypted_claims")   // AES-256-GCM encrypted JSON
+  claimHashes     Json     @map("claim_hashes")        // { fieldName: sha256hex } — for field enumeration
+  claimSalts      Json     @map("claim_salts")         // { fieldName: 32-byte hex salt } — for Merkle leaf blinding
+  merkleRoot      String   @map("merkle_root")         // hex root hash (computed with salted leaves)
+  issuerSignature String   @map("issuer_signature")    // base64 Ed25519 signature over merkleRoot
+  issuerPublicKey String   @map("issuer_public_key")   // base64 Ed25519 public key
+  issuerName      String   @default("TrustPass") @map("issuer_name") // platform-level, always TrustPass
+  issuedAt        DateTime @default(now()) @map("issued_at")
+  shares          Share[]
+
+  @@map("credentials")
+}
+
+
+model Share {
+  id                String     @id @default(uuid())
+  credentialId      String     @map("credential_id")
+  credential        Credential @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+  disclosedFields   String[]   @map("disclosed_fields")
+  presentationToken String     @map("presentation_token")
+  expiresAt         DateTime   @map("expires_at")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  accessCount       Int        @default(0) @map("access_count")
+
+  @@map("shares")
+}
