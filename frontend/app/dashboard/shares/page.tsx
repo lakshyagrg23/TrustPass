@@ -184,12 +184,12 @@ export default function SharesPage() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 glass border-b" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}>
               <Shield className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-lg gradient-text">TrustPass</span>
-          </div>
+          </Link>
           <Link href="/dashboard" className="btn-secondary py-2 px-3 text-sm">
             <ArrowLeft className="w-4 h-4" />
             Dashboard

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Shield, Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Shield, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { authApi, extractError } from "@/lib/api";
 
@@ -57,31 +57,27 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#94a3b8" }}>Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#64748b" }} />
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="input-field pl-10"
-                  required
-                />
-              </div>
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="input-field"
+                required
+              />
             </div>
 
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#94a3b8" }}>Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#64748b" }} />
                 <input
                   id="password"
                   type={showPass ? "text" : "password"}
                   placeholder="Your password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="input-field pl-10 pr-10"
+                  className="input-field pr-10"
                   required
                 />
                 <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: "#64748b" }}>
@@ -116,14 +112,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-6 mt-6">
-          {["Ed25519 Signed", "Merkle Proof", "AES-256 Encrypted"].map((label) => (
-            <span key={label} className="text-xs flex items-center gap-1" style={{ color: "#475569" }}>
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#6366f1" }} />
-              {label}
-            </span>
-          ))}
-        </div>
+
       </motion.div>
     </div>
   );

@@ -59,6 +59,9 @@ export async function verifyPresentation(presentationToken: string): Promise<Ver
       issuedAt: vp!.issuedAt,
       expiresAt: vp!.expiresAt,
       disclosedClaims: vp!.disclosedClaims,
+      merkleRoot: vp!.merkleRoot,
+      issuerPublicKey: vp!.issuerPublicKey,
+      issuerSignature: vp!.issuerSignature,
       fieldResults: [],
       checks: {
         jwtSignatureValid: true,
@@ -129,6 +132,9 @@ export async function verifyPresentation(presentationToken: string): Promise<Ver
     issuedAt: vp.issuedAt,
     expiresAt: vp.expiresAt,
     disclosedClaims: vp.disclosedClaims,
+    merkleRoot: vp.merkleRoot,
+    issuerPublicKey: vp.issuerPublicKey,
+    issuerSignature: vp.issuerSignature,
     fieldResults,
     checks: {
       jwtSignatureValid,

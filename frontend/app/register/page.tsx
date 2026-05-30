@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Shield, Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Shield, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { authApi, extractError } from "@/lib/api";
 
@@ -60,47 +60,40 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#94a3b8" }}>Full Name</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#64748b" }} />
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Lakshya Garg"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="input-field pl-10"
-                  required
-                />
-              </div>
+              <input
+                id="name"
+                type="text"
+                placeholder="Your name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="input-field"
+                required
+              />
             </div>
 
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#94a3b8" }}>Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#64748b" }} />
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="input-field pl-10"
-                  required
-                />
-              </div>
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="input-field"
+                required
+              />
             </div>
 
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#94a3b8" }}>Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#64748b" }} />
                 <input
                   id="password"
                   type={showPass ? "text" : "password"}
                   placeholder="Min. 8 characters"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="input-field pl-10 pr-10"
+                  className="input-field pr-10"
                   minLength={8}
                   required
                 />
@@ -141,15 +134,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {/* Trust indicators */}
-        <div className="flex items-center justify-center gap-6 mt-6">
-          {["Ed25519 Signed", "Merkle Proof", "AES-256 Encrypted"].map((label) => (
-            <span key={label} className="text-xs flex items-center gap-1" style={{ color: "#475569" }}>
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#6366f1" }} />
-              {label}
-            </span>
-          ))}
-        </div>
+        
       </motion.div>
     </div>
   );
