@@ -27,7 +27,7 @@ Holders can share **only specific fields** of their credentials while verifiers 
 
 - **Deployment**: [https://trust-pass-ashy.vercel.app](https://trust-pass-ashy.vercel.app)
 - **API Swagger Docs**: [https://trustpass-ioi6.onrender.com/api/docs](https://trustpass-ioi6.onrender.com/api/docs)
-- **Demo Video**: [https://drive.google.com](#demo-video)
+- **Demo Video**: [https://drive.google.com/file/d/1Od7C_63ff7FK6Usw11c0DiI9c5tok3wJ/view](#demo-video)
 
 ---
 
