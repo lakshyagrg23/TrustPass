@@ -273,63 +273,6 @@ function VerifyContent() {
                         </p>
                       </div>
 
-                      {/* Cryptographic Info Section */}
-                      <div className="space-y-2">
-                        {/* Merkle Root */}
-                        <div className="p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.2)" }}>
-                          <div className="text-xs font-medium mb-2" style={{ color: "#94a3b8" }}>Merkle Root (SHA-256)</div>
-                          <div className="flex items-start gap-2">
-                            <code className="text-xs font-mono break-all flex-1" style={{ color: "#a5f3fc" }}>
-                              {result.merkleRoot}
-                            </code>
-                            <button
-                              onClick={() => navigator.clipboard.writeText(result.merkleRoot)}
-                              className="px-2 py-1 text-xs font-medium rounded shrink-0 hover:opacity-80"
-                              style={{ background: "rgba(99,102,241,0.2)", color: "#6366f1" }}
-                              title="Copy to clipboard"
-                            >
-                              📋
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Public Key */}
-                        <div className="p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.2)" }}>
-                          <div className="text-xs font-medium mb-2" style={{ color: "#94a3b8" }}>Issuer Public Key (Ed25519)</div>
-                          <div className="flex items-start gap-2">
-                            <code className="text-xs font-mono break-all flex-1" style={{ color: "#a5f3fc" }}>
-                              {result.issuerPublicKey}
-                            </code>
-                            <button
-                              onClick={() => navigator.clipboard.writeText(result.issuerPublicKey)}
-                              className="px-2 py-1 text-xs font-medium rounded shrink-0 hover:opacity-80"
-                              style={{ background: "rgba(99,102,241,0.2)", color: "#6366f1" }}
-                              title="Copy to clipboard"
-                            >
-                              📋
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Issuer Signature */}
-                        <div className="p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.2)" }}>
-                          <div className="text-xs font-medium mb-2" style={{ color: "#94a3b8" }}>Issuer Signature</div>
-                          <div className="flex items-start gap-2">
-                            <code className="text-xs font-mono break-all flex-1" style={{ color: "#a5f3fc" }}>
-                              {result.issuerSignature}
-                            </code>
-                            <button
-                              onClick={() => navigator.clipboard.writeText(result.issuerSignature)}
-                              className="px-2 py-1 text-xs font-medium rounded shrink-0 hover:opacity-80"
-                              style={{ background: "rgba(99,102,241,0.2)", color: "#6366f1" }}
-                              title="Copy to clipboard"
-                            >
-                              📋
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
                       {/* Quick Reference */}
                       <div className="grid grid-cols-2 gap-2">
                         {[
