@@ -10,7 +10,7 @@ Holders can share **only specific fields** of their credentials while verifiers 
 
 - [Problem Statement](#problem-statement)
 - [Features](#features)
-- [Architecture](#architecture)
+- [Architecture](#architecture-overview)
 - [Tech Stack](#tech-stack)
 - [Quick Start](#quick-start)
 - [API Documentation](#api-documentation)
@@ -110,6 +110,46 @@ Digital identity verification today faces a fundamental privacy-security tradeof
 
 ### How It Works (3-Layer Cryptography)
 
+**System Overview**
+
+```mermaid
+flowchart TB
+    subgraph Phase1["Phase 1: Credential Issuance"]
+        A[Holder Creates Credential]
+        B[Generate Salted Claim Hashes]
+        C[Build Merkle Tree]
+        D[Sign Merkle Root with Ed25519]
+        E[Credential Stored]
+    end
+
+    subgraph Phase2["Phase 2: Credential Sharing"]
+        F[Select Fields to Share]
+        G[Generate Verifiable Presentation]
+        H[Share Link / QR Code]
+    end
+
+    subgraph Phase3["Phase 3: Credential Verification"]
+        I[Verifier Opens Link]
+        J[Verify Merkle Proofs]
+        K[Verify Ed25519 Signature]
+        L[Verified Credential]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+
+    E --> F
+    F --> G
+    G --> H
+
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+```
+
 **Layer 1: Credential Issuance**
 
 ```
@@ -122,6 +162,33 @@ Merkle tree construction (SHA256, sortPairs: true)
 Root hash → Ed25519 signature (issuer private key)
               ↓
 Storage: { encryptedClaims, merkleRoot, issuerSignature, claimSalts }
+```
+
+**Merkle Tree Construction Example**
+
+```mermaid
+flowchart TB
+
+    A["name: Alice"]
+    B["degree: B.Tech"]
+    C["cgpa: 9.2"]
+    D["graduationYear: 2027"]
+
+    A --> H1["Salted Hash H1"]
+    B --> H2["Salted Hash H2"]
+    C --> H3["Salted Hash H3"]
+    D --> H4["Salted Hash H4"]
+
+    H1 --> N1["Node A"]
+    H2 --> N1
+
+    H3 --> N2["Node B"]
+    H4 --> N2
+
+    N1 --> ROOT["Merkle Root"]
+    N2 --> ROOT
+
+    ROOT --> SIG["Ed25519 Signature"]
 ```
 
 **Layer 2: Selective Sharing**
@@ -154,6 +221,34 @@ Hidden fields' salts NEVER included → Brute-force search space = 2^256
 ```
 
 **Layer 3: Verification**
+
+```mermaid
+flowchart LR
+
+    A["Degree = B.Tech"]
+    B["Salt"]
+    C["Leaf Hash"]
+
+    D["Merkle Proof Path"]
+    E["Merkle Root"]
+
+    F["Issuer Signature"]
+    G["Issuer Public Key"]
+
+    H["Verification Result"]
+
+    A --> C
+    B --> C
+
+    C --> E
+    D --> E
+
+    E --> H
+    F --> H
+    G --> H
+```
+
+**Detailed Verification Steps**
 
 ```
 Verifier receives presentationToken
@@ -526,7 +621,7 @@ npm run test:coverage      # Coverage report
 - Backend: Render (PostgreSQL managed)
 - Frontend: Vercel (auto-deploys from Git)
 
-See [Live Deployment](#-live-deployment) section for links.
+See [Live Deployment](https://trust-pass-ashy.vercel.app)
 
 ---
 
@@ -714,7 +809,3 @@ Potential enhancements for production rollout:
 - **Server authentication**: Proves token came from TrustPass
 
 ---
-
-## License
-
-MIT License — See [LICENSE](./LICENSE) file

@@ -70,9 +70,6 @@ export interface VerificationResult {
   issuedAt: string;
   expiresAt: string;
   disclosedClaims: Record<string, unknown>;
-  merkleRoot: string;
-  issuerPublicKey: string;
-  issuerSignature: string;
   fieldResults: FieldVerificationResult[];
   checks: {
     jwtSignatureValid: boolean;
